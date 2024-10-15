@@ -1,0 +1,100 @@
+openapi: '3.0.1'
+info:
+  title: Cadastro de Pessoas
+  description:
+    O Cadastro de Pessoas é um serviço que (adivinhe) cadastra pessoas. As pessoas têm um nome e uma idade.
+    Sei lá...
+  version: '0.1'
+servers:
+  - url: http://{host}:{porta}/api
+    variables:
+      host:
+        default: localhost
+      porta:
+        default: '8000'
+paths:
+  /usuarios:
+    get:
+      summary: Acessar usuários
+      responses:
+        200:
+          description: OK
+    
+    post:
+      summary: Criar um usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: O nome da pessoa.
+                  example: Chico
+                email:
+                  type: string
+                  description: email:.
+                  example: Chico@chico
+                senha:
+                  type: string
+                  description: senha:.
+                  example: Chico123  
+        
+      responses:
+        201:
+          description: Usuário criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida
+
+  /usuarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Acessar um usuário
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Criar ou atualizar um usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        200:
+          description: Atualizado.
+        201:
+          description: Criado.
+        404:
+          description: Usuário não encontrado.
+
+    delete:
+      summary: Apagar um usuário.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Usuário não encontrado.
