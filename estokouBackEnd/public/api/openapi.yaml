@@ -1,0 +1,286 @@
+openapi: '3.0.1'
+info:
+  title: Estokou
+  description:
+    Possui os cadastros de usuários, estoques e a criação de pacotes dos estoque do usuário
+  version: '0.1'
+servers:
+  - url: http://{host}:{porta}/api
+    variables:
+      host:
+        default: localhost
+      porta:
+        default: '8000'
+paths:
+  /usuarios:
+    get:
+      summary: Acessar usuários
+      responses:
+        200:
+          description: OK
+    
+    post:
+      summary: Criar um usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: O nome da pessoa.
+                  example: Chico
+                email:
+                  type: string
+                  description: email:.
+                  example: Chico@chico
+                senha:
+                  type: string
+                  description: senha:.
+                  example: Chico123  
+        
+      responses:
+        201:
+          description: Usuário criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida
+
+  /usuarios/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Acessar um usuário
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Criar ou atualizar um usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                email:
+                  type: string
+                senha:
+                  type: string
+      responses:
+        200:
+          description: Atualizado.
+        201:
+          description: Criado.
+        404:
+          description: Usuário não encontrado.
+
+    delete:
+      summary: Apagar um usuário.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Usuário não encontrado.
+  /estoques:
+    get:
+      summary: Acessar todos os estoques
+      responses:
+        200:
+          description: OK
+    
+    post:
+      summary: Criar um estoque
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: O nome do estoque.
+                  example: Estoque principal
+                id_usuario:
+                  type: integer
+                  description: email:.
+                  example: 1 
+        
+      responses:
+        201:
+          description: Estoque criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida
+  /estoques/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Acessar um estoque
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Criar ou atualizar um estoque.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                id_usuario:
+                  type: integer
+      responses:
+        200:
+          description: Atualizado.
+        201:
+          description: Criado.
+        404:
+          description: Usuário não encontrado.
+
+    delete:
+      summary: Apagar um estoque.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Estoque não encontrado.
+
+  /pacotes:
+    get:
+      summary: Acessar todos os pacotes
+      responses:
+        200:
+          description: OK
+    
+    post:
+      summary: Criar um pacote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: O nome do pacote.
+                  example: pipoca
+                peso:
+                  type: integer
+                  description: peso:.
+                  example: 100
+                quantidade:
+                  type: integer
+                  description: quantidade:.
+                  example: 10
+                fragilidade:
+                  type: boolean
+                  description: fragilidade:.
+                  example: true 
+                id_estoque:
+                  type: integer
+                  description: id do estoque:.
+                  example: 1
+        
+      responses:
+        201:
+          description: Pacote criado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida
+
+  /pacotes/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Acessar um pacote
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Criar ou atualizar um pacote.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nome:
+                  type: string
+                  description: O nome do pacote.
+                  example: Pipoca
+                peso:
+                  type: integer
+                  description: peso:.
+                  example: 100
+                quantidade:
+                  type: integer
+                  description: quantidade:.
+                  example: 10
+                fragilidade:
+                  type: boolean
+                  description: fragilidade:.
+                  example: true 
+                id_estoque:
+                  type: integer
+                  description: id do estoque:.
+                  example: 1
+      responses:
+        200:
+          description: Atualizado.
+        201:
+          description: Criado.
+        404:
+          description: Pacote não encontrado.
+
+    delete:
+      summary: Apagar um pacote.
+      responses:
+        200:
+          description: OK
+        404:
+          description: Pacote não encontrado.
+  
