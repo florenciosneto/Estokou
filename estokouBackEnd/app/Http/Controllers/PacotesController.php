@@ -22,9 +22,10 @@ class PacotesController extends Controller
      */
     public function store(Request $request)
     {
+        //verifica a existência do estoque o qual o pacote está associado
         $idEstoque = $request->input('id_estoque');
-        $idverificado = Estoques::find($idEstoque);
-        if ($idverificado) {
+        $estoque = Estoques::find($idEstoque);
+        if ($estoque) {
             $nome = $request->input('nome');
             $peso = $request->input('peso');
             $quantidade = $request->input('quantidade');
@@ -34,7 +35,7 @@ class PacotesController extends Controller
             } else {
                 $fragilidade = true;
             }
-            $p = pacotes::create(['id_estoque' => $idEstoque, 'nome' => $nome, 'peso' => $peso, 'quantidade' => $quantidade, 'fragilidade' => $fragilidade]);
+            $p = pacotes::create(['id_estoque' => $estoque ->id, 'nome' => $nome, 'peso' => $peso, 'quantidade' => $quantidade, 'fragilidade' => $fragilidade]);
             $id = $p->id;
 
             return response(
@@ -54,54 +55,46 @@ class PacotesController extends Controller
      * @param  \App\Models\Pacotes  $pacotes
      * @return \Illuminate\Http\Response
      */
-    public function show(Pacotes $pacotes, $id)
+    public function show(Pacotes $pacote)
     {
-        $pacotes = Pacotes::find($id);
+        return response($pacote, 200);
 
-        if ($pacotes) {
-            return response($pacotes, 200);
-        }
-
-        return response(['error' => 'Pacote nao encontrado'], 404);
     }
 
-    public function update(Request $request, Pacotes $pacotes)
+    public function update(Request $request, Pacotes $pacote)
     {
         $idEstoque = $request->input('id_estoque');
-        $idverificado = Estoques::find($idEstoque);
-        if ($idverificado) {
-            $pacotes->id_estoque = $idverificado->id;
-            $nome = request()->input('nome');
-            if ($nome)
-                $pacotes->nome = $nome;
-            $peso = request()->input('peso');
-            if ($peso)
-                $pacotes->peso = $peso;
-            
-            $quantidade = request()->input('quantidade');
-            if ($quantidade)
-                $pacotes->quantidade = $quantidade;
-            
-            $fragilidade = request()->input('fragilidade');
-            if ($fragilidade)
-                $pacotes->fragilidade = $fragilidade;
-            $pacotes->save();
-        };
+        # TODO: Avisar ao usuário que ele não pode trocar o id do estoque, caso ele tente
+        if ($idEstoque != $pacote->id_estoque){
+            return response('O id informado é diferente do original', status:400);
+        }
+        $nome = request()->input('nome');
+        if ($nome)
+            $pacote->nome = $nome;
+
+        $peso = request()->input('peso');
+        if ($peso)
+            $pacote->peso = $peso;
+        
+        $quantidade = request()->input('quantidade');
+        if ($quantidade)
+            $pacote->quantidade = $quantidade;
+        
+        $fragilidade = request()->input('fragilidade');
+        if ($fragilidade)
+            $pacote->fragilidade = $fragilidade;
+        
+        $pacote->save();
     }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Pacotes  $pacotes
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pacotes $pacotes, $id)
+    public function destroy(Pacotes $pacote)
     {
-        $pacote = Pacotes::find($id);
-
-        if (!$pacote) {
-            return response(['error' => 'pacote não encontrado'], 404);
-        }
         $pacote->delete();
-        return response(['message' => 'pacote excluído com sucesso'], 200);
     }
 }

@@ -55,28 +55,19 @@ class UsuarioController extends Controller
      * @param  \App\Models\usuario  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pacotes $pacotes)
+    public function update(Request $request, usuario $usuario)
     {
-        $idEstoque = $request->input('id_estoque');
-        $idverificado = Estoques::find($idEstoque);
-        if ($idverificado) {
-            $pacotes->id_estoque = $idverificado;
-            $nome = request()->input('nome');
-            if ($nome)
-                $pacotes->nome = $nome;
-            $peso = request()->input('peso');
-            if ($peso)
-                $pacotes->peso = $peso;
-            $pacotes->save();
-            $quantidade = request()->input('quantidade');
-            if ($quantidade)
-                $pacotes->quantidade = $quantidade;
-            $pacotes->save();
-            $fragilidade = request()->input('fragilidade');
-            if ($fragilidade)
-                $pacotes->fragilidade = $fragilidade;
-            $pacotes->save();
-        };
+        $nome = request()->input('nome');
+        if ($nome)
+            $usuario->nome = $nome;
+        $email = request()->input('email');
+        if ($email)
+            $usuario->email = $email;
+        $senha = request()->input('senha');
+        if ($senha)
+            $usuario->senha = $senha;
+        $usuario->save();
+
     }
     /**
      * Remove the specified resource from storage.
