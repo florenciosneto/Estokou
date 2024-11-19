@@ -2,7 +2,7 @@ openapi: '3.0.1'
 info:
   title: Estokou
   description:
-    Possui os cadastros de usuários, estoques e a criação de pacotes dos estoque do usuário
+    Possui os cadastros de usuários, estoques e a criação de produto dos estoque do usuário
   version: '0.1'
 servers:
   - url: http://{host}:{porta}/api
@@ -176,15 +176,126 @@ paths:
         404:
           description: Estoque não encontrado.
 
-  /pacotes:
+  /movimentacao:
     get:
-      summary: Acessar todos os pacotes
+      summary: Acessar todas as movimentações
+      responses:
+        200:
+          description: OK
+
+    post:
+      summary: Criar uma movimentacao
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_estoque:
+                  type: integer
+                  description: id do estoque associado.
+                  example: 1
+                id_prod:
+                  type: integer
+                  description: id do produto associado.
+                  example: 1
+                data:
+                  type: string
+                  description: data da movimentacao.
+                  example: 18/11/24
+                quantidade:
+                  type: integer
+                  description: quantidade de produtos envolvidos na movimentacao.
+                  example: 100
+                operacao:
+                  type: string
+                  description: qual o tipo de operacao (subtração ou adição)
+                  example: subtração
+      responses:
+        201:
+          description: movimentação criada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    description: O URI do novo recurso criado.
+        400:
+          description: Requisição inválida   
+
+  /movimentacao/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Acessar uma movimentacao
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Criar ou atualizar uma movimentacao.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_estoque:
+                  type: integer
+                  description: id do estoque.
+                  example: 1
+                id_prod:
+                  type: integer
+                  description: id do produto.
+                  example: 1
+                preco:
+                  type: integer
+                  description: preço:.
+                  example: 100
+                quantidade:
+                  type: integer
+                  description: quantidade:.
+                  example: 10
+                data:
+                  type: string
+                  description: data:.
+                  example: 18/11/24 
+                operacao:
+                  type: string
+                  description: operacao utilizada
+                  example: adicao
+      responses:
+        200:
+          description: Atualizado.
+        201:
+          description: Criado.
+        404:
+          description: movimentacao não encontrado.
+
+    delete:
+      summary: Apagar uma movimentacao.
+      responses:
+        200:
+          description: OK
+        404:
+          description: movimentacao não encontrado.   
+
+  /produto:
+    get:
+      summary: Acessar todos os produtos
       responses:
         200:
           description: OK
     
     post:
-      summary: Criar um pacote
+      summary: Criar um produto
       requestBody:
         required: true
         content:
@@ -194,11 +305,11 @@ paths:
               properties:
                 nome:
                   type: string
-                  description: O nome do pacote.
+                  description: O nome do produto.
                   example: pipoca
-                peso:
+                preco:
                   type: integer
-                  description: peso:.
+                  description: preço:.
                   example: 100
                 quantidade:
                   type: integer
@@ -208,14 +319,9 @@ paths:
                   type: boolean
                   description: fragilidade:.
                   example: true 
-                id_estoque:
-                  type: integer
-                  description: id do estoque:.
-                  example: 1
-        
       responses:
         201:
-          description: Pacote criado
+          description: produto criado
           content:
             application/json:
               schema:
@@ -227,7 +333,8 @@ paths:
         400:
           description: Requisição inválida
 
-  /pacotes/{id}:
+
+  /produto/{id}:
     parameters:
       - name: id
         in: path
@@ -235,12 +342,12 @@ paths:
         schema:
           type: integer
     get:
-      summary: Acessar um pacote
+      summary: Acessar um produto
       responses:
         200:
           description: OK
     put:
-      summary: Criar ou atualizar um pacote.
+      summary: Criar ou atualizar um produto.
       requestBody:
         required: true
         content:
@@ -250,11 +357,11 @@ paths:
               properties:
                 nome:
                   type: string
-                  description: O nome do pacote.
+                  description: O nome do produto.
                   example: Pipoca
-                peso:
+                preco:
                   type: integer
-                  description: peso:.
+                  description: preco:.
                   example: 100
                 quantidade:
                   type: integer
@@ -264,23 +371,19 @@ paths:
                   type: boolean
                   description: fragilidade:.
                   example: true 
-                id_estoque:
-                  type: integer
-                  description: id do estoque:.
-                  example: 1
       responses:
         200:
           description: Atualizado.
         201:
           description: Criado.
         404:
-          description: Pacote não encontrado.
+          description: produto não encontrado.
 
     delete:
-      summary: Apagar um pacote.
+      summary: Apagar um produto.
       responses:
         200:
           description: OK
         404:
-          description: Pacote não encontrado.
+          description: produto não encontrado.
   
