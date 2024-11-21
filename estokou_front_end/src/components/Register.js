@@ -12,7 +12,7 @@ const Register = () => {
         <div className='registerBody'>
             <Navbar></Navbar>
             <div className='form'>
-                <Form>
+                <Form action='/usuario'>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Insira o seu email</Form.Label>
                         <Form.Control type="email" placeholder="Exemplo@gmail.com" />

@@ -1,5 +1,3 @@
-
-import { Children } from 'react';
 import '../css/Navbar.css';
 import logo from '../logo.svg';
 
@@ -10,9 +8,9 @@ function Navbar() {
       <div className='nav'>
         <div className='logo'>
           <a href='/'>
-          <img src={logo} className="App-logo" alt="logo" />
+            <img src={logo} className="App-logo" alt="logo" />
           </a>
-          
+
         </div>
         <div className='users'>
           <a href='/registro'>Cadastrar</a>
