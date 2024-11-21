@@ -1,0 +1,22 @@
+.homeBody{
+  height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: space-between;
+ background-color: #A0CFEB;
+
+}
+
+.aboutUs{
+    background-color: aliceblue;
+    width: 80%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
