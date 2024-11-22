@@ -4,4 +4,4 @@ Link dos protótipos de baixa e média fidelidade: https://www.figma.com/design/
 
 Frameworks sem os arquivos necessários para rodar (Vendor do laravel e o node do react):
 - Rode Composer install em EstokouBackEnd
-- Rode npm install em Estokou_front_end
+- Rode npm install, npm install react-router-dom e npm install react-bootstrap bootstrap em Estokou_front_end
