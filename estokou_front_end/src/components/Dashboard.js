@@ -1,11 +1,11 @@
 import React from 'react';
-// import '../css/Dashboad.css';
+import '../css/DashBoard.css';
 import UserNavbar from './UserNavbar';
 import Table from './TableProdut';
 
 const Dashboad = () => {
     return(
-        <div className='DashboadBody'>
+        <div className='DashBoardBody'>
             <UserNavbar></UserNavbar> 
             <Table></Table> 
         </div>

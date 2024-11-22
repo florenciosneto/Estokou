@@ -1,22 +1,25 @@
-.homeBody{
+.homeBody {
+  background-color: #A0CFEB;
+
+}
+
+.contentBody {
+  background-color: #A0CFEB;
   height: 100vh;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: space-between;
- background-color: #A0CFEB;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.aboutUs{
-    background-color: aliceblue;
-    width: 80%;
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
-    
-}
+.aboutUs {
+  background-color: aliceblue;
+  width: 80%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
 
+}

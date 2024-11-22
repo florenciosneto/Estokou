@@ -1,18 +1,19 @@
 import React from 'react';
-import Navbar from "./Navbar";
 import BaseBoard from './BaseBoard';
-import '../css/Register.css';
+import '../css/RegisterProduct.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import UserNavbar from './UserNavbar';
 
 
 const RegisterProduct = () => {
     return (
-        <div className='registerProductBody'>
-            <Navbar></Navbar>
+        
+        <div className='RegisterProductBody'>
+            <UserNavbar/>
             <div className='form'>
-                <Form>
+                <Form method='/usuario'>
                     <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Insira o seu nome do produto</Form.Label>
                         <Form.Control type="text" placeholder="Feijão" />
@@ -34,9 +35,7 @@ const RegisterProduct = () => {
                     </Button>
                 </Form>
             </div>
-
             <BaseBoard></BaseBoard>
-
         </div>
     );
 };

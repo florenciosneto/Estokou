@@ -1,0 +1,12 @@
+.RegisterProductBody{
+    background-color: #A0CFEB;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teste{
+    background-color: #A0CFEB;
+}

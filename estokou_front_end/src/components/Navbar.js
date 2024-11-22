@@ -6,12 +6,11 @@ function Navbar() {
   return (
     <div className='body'>
       <div className='nav'>
+      <a href='/'>
         <div className='logo'>
-          <a href='/'>
-            <img src={logo} className="App-logo" alt="logo" />
-          </a>
-
+          <img src={logo} className="App-logo" alt="logo" />
         </div>
+        </a>
         <div className='users'>
           <a href='/registro'>Cadastrar</a>
           <a href='/login'>Login</a>

@@ -10,9 +10,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Login = () => {
     return (
         <div className='loginBody'>
-            <Navbar></Navbar>
+            <Navbar/>
             <div className='loginForm'>
-                <Form>
+                <Form method='/usuario'>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" placeholder="Insira o email aqui" />

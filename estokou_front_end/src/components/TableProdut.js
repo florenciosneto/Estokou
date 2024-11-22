@@ -10,7 +10,7 @@ function TableProdut() {
                     <button className="search-btn"><i className="fas fa-search"></i></button>
                 </div> 
                 <div className="buttons">
-                    <button className="btn"><a href=''><i className="fas fa-plus-circle"></i> Adicionar Produto</a></button>
+                    <button className="btn"><a href='/usuario/produtos'><i className="fas fa-plus-circle"></i> Adicionar Produto</a></button>
                     <button className="btn"><a href=''><i className="fas fa-box-open"></i> Adicionar Estoque</a></button>
                     <button className="btn"><a href=''><i className="fas fa-exchange-alt"></i> Trocar Estoque</a></button>
                 </div>
@@ -19,7 +19,7 @@ function TableProdut() {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Nome</th>
                         <th>Quantidade</th>
                         <th>Preço Unitário</th>
                         <th>Preço Total</th>
