@@ -204,14 +204,14 @@ paths:
                   type: string
                   description: data da movimentacao.
                   example: 18/11/24
-                quantidade:
+                quantidadeMovi:
                   type: integer
                   description: quantidade de produtos envolvidos na movimentacao.
                   example: 100
                 operacao:
-                  type: string
-                  description: qual o tipo de operacao (subtração ou adição)
-                  example: subtração
+                  type: boolean
+                  description: operacao utilizada True é somar e False é subtrair (se deixar null considerasse false)
+                  example: true
       responses:
         201:
           description: movimentação criada
@@ -255,11 +255,7 @@ paths:
                   type: integer
                   description: id do produto.
                   example: 1
-                preco:
-                  type: integer
-                  description: preço:.
-                  example: 100
-                quantidade:
+                quantidadeMovi:
                   type: integer
                   description: quantidade:.
                   example: 10
@@ -268,9 +264,9 @@ paths:
                   description: data:.
                   example: 18/11/24 
                 operacao:
-                  type: string
-                  description: operacao utilizada
-                  example: adicao
+                  type: boolean
+                  description: operacao utilizada True é somar e False é subtrair (se deixar null considerasse false)
+                  example: true
       responses:
         200:
           description: Atualizado.

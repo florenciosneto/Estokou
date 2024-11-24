@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\movimentacao;
 use Illuminate\Http\Request;
 use App\Models\Estoques;
@@ -9,33 +8,12 @@ use App\Models\produto;
 
 class MovimentacaoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $movimentacao = movimentacao::all();
         return $movimentacao;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $idEstoque = $request->input('id_estoque');
@@ -44,24 +22,42 @@ class MovimentacaoController extends Controller
         $produto = produto::find($idproduto);
         if ($estoque) {
             $data = $request->input('data');
-            $quantidade = $request->input('quantidade');
+            $quantidadeMovi = $request->input('quantidadeMovi');
             $operacao = $request->input('operacao');
+            // Nesse caso, como operação é um booleano, consideramos que true vai somar a quantidade e false vai subtrair
             if ($operacao == null) {
-                $operacao = 'soma';
+                $operacao = false;
             } else {
-                $operacao = 'subtracao';
+                $operacao = true;
             }
-            if (!$produto && $operacao == 'subtracao') {
+            /* 
+            Aqui ele impede do usuário subtrair uma quantidade de um produto que não existe ou subtrair uma
+            quantidade maior que a existente no produto
+            */
+            if (!$produto && !$operacao || $produto && $produto->quantidade < $quantidadeMovi && !$operacao) {
                 return response(
-                    ['error' => 'Produto nao encontrado'],
+                    ['error' => 'Você não pode subtrair de um produto que não existe ou subtrair uma quantidade maior que a existente'],
                     404
                 );
+            /* 
+            Aqui atualiza a quantidade de produtos, adicionando ou subtraindo ao produto existente a quantidade
+            informada na movimentação
+            */
+            } else if ($produto && $operacao) {
+                $produto->quantidade += $quantidadeMovi;
+                $produto->save();
+            } else if ($produto && !$operacao) {
+                $produto->quantidade -= $quantidadeMovi;
+                $produto->save();
+            
+            //Aqui cria um produto, caso ele não exista
+            } else if (!$produto && $operacao) {
+                $produto = produto::create(['nome' => '???', 'quantidade' => $quantidadeMovi, 'preco' => 0, 'fragilidade' => false]);
             }
-            $p = movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidade' => $quantidade, 'data' => $data, 'operacao' => $operacao]);
-            $id = $p->id;
+            $movimentacao = movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidadeMovi' => $quantidadeMovi, 'data' => $data, 'operacao' => $operacao]);
 
             return response(
-                ['location' => route('movimentacao.show', $id)],
+                ['location' => route('movimentacao.show', $movimentacao->id)],
                 201
             );
         }
@@ -71,12 +67,6 @@ class MovimentacaoController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
     public function show(movimentacao $movimentacao)
     {
         return response($movimentacao, 200);
@@ -90,22 +80,22 @@ class MovimentacaoController extends Controller
         if ($idEstoque != $movimentacao->id_estoque) {
             return response('O id informado é diferente do original', status: 400);
         }
-        $idproduto = request()->input('idprod');
-        if ($idproduto)
-            $movimentacao->id_prod = $idproduto;
-
+        $idproduto = request()->input('id_prod');
+        if ($idproduto != $movimentacao->id_prod) {
+            return response('O id do produto informado é diferente do original', status: 400);
+        }
         $operacao = request()->input('operacao');
         if ($operacao == null) {
-            $operacao = 'soma';
+            $operacao = false;
         } else {
-            $operacao = 'subtracao';
+            $operacao = true;
         }
         if ($operacao)
             $movimentacao->operacao = $operacao;
 
-        $quantidade = request()->input('quantidade');
-        if ($quantidade)
-            $movimentacao->quantidade = $quantidade;
+        $quantidadeMovi = request()->input('quantidadeMovi');
+        if ($quantidadeMovi)
+            $movimentacao->quantidadeMovi = $quantidadeMovi;
 
         $data = request()->input('data');
         if ($data)
@@ -114,12 +104,6 @@ class MovimentacaoController extends Controller
         $movimentacao->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\movimentacao  $movimentacao
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(movimentacao $movimentacao)
     {
         $movimentacao->delete();
