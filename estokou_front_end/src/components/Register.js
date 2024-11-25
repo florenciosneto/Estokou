@@ -5,33 +5,78 @@ import '../css/Register.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from "react";
+import { useEffect } from 'react';
+import api from "../servico/App";
+import { useNavigate } from 'react-router-dom';
+import profile from './UserProfile';
 
 
 const Register = () => {
+
+    const CadastrarUsuario = async(e) =>{
+        e.preventDefault()
+        try {
+            const response = await api.post("/api/usuarios", {
+                nome: name,  // Envia o valor diretamente
+                email: email,
+                senha: password,
+            });
+            
+            alert("Usuário cadastrado com sucesso!");
+            const userId = response.data.id;
+
+            profile.setName(name);
+            profile.getId(userId);
+            navigate("/usuario", { state: { userId, name, email } })
+        } catch (err) {
+            console.error("Erro ao cadastrar usuário: ", err);
+            alert("Ocorreu um erro ao cadastrar o usuário.");
+        }
+             
+    }
+
+    
+
+
+        const [data, setData] = useState();
+        const navigate = useNavigate()
+        const [name,setName] = useState()
+        const [email,setEmail] = useState()
+        const [password,setPassword] = useState()
+        const [checkbox, setCheckbox] = useState()
+    
+
+    function handleCheckbox (e){
+        setCheckbox(e.target.value);
+      };
+
+
     return (
         <div className='registerBody'>
             <Navbar></Navbar>
             <div className='form'>
-                <Form action='/usuario'>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form onSubmit={CadastrarUsuario}>
+                    <Form.Group className="mb-3" controlId="Email" name='email' onChange={(e)=> setEmail(e.target.value)} value={email}>
                         <Form.Label>Insira o seu email</Form.Label>
-                        <Form.Control type="email" placeholder="Exemplo@gmail.com" />
+                        <Form.Control type="email" placeholder="Insira o seu Email" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Group className="mb-3" controlId="Name" name='name' onChange={(e)=> setName(e.target.value)} value={name}>
                         <Form.Label>Insira um Nome</Form.Label>
                         <Form.Control type='text' placeholder="Seu nome" />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Group className="mb-3" controlId="Password" name='password' onChange={(e)=> setPassword(e.target.value)} value={password}>
                         <Form.Label>Crie uma Senha</Form.Label>
                         <Form.Control type="password" placeholder="*******" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                    <Form.Group className="mb-3" controlId="Checkbox" value={checkbox} onChange={handleCheckbox}>
                         <Form.Check type="checkbox" label="Eu concordo com os termos que a empresa não escreveu ainda" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Enviar
                     </Button>
+                    
                 </Form>
             </div>
 
