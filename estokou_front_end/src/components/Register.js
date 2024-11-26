@@ -6,10 +6,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from "react";
-import { useEffect } from 'react';
 import api from "../servico/App";
 import { useNavigate } from 'react-router-dom';
-import profile from './UserProfile';
+import profile from './Profiles';
 
 
 const Register = () => {
@@ -24,11 +23,11 @@ const Register = () => {
             });
             
             alert("Usuário cadastrado com sucesso!");
-            const userId = response.data.id;
-
+            
+            var location = response.data.location.substring(api.getUri().length);
             profile.setName(name);
-            profile.getId(userId);
-            navigate("/usuario", { state: { userId, name, email } })
+            profile.setId((await api.get(location)).data.id)
+            navigate("/usuario")
         } catch (err) {
             console.error("Erro ao cadastrar usuário: ", err);
             alert("Ocorreu um erro ao cadastrar o usuário.");

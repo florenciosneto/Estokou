@@ -1,32 +1,43 @@
-var UserProfile = (function() {
+var Profile = (function() {
     var full_name = "";
     var user_id = 0;
+    var storage_id = 0;
   
     var getName = function() {
-      return full_name;    // Or pull this from cookie/localStorage
+      return full_name; 
     };
   
     var setName = function(name) {
       full_name = name;     
-      // Also set this in cookie/localStorage
+
     };
 
     var getId = function() {
-        return full_name;    // Or pull this from cookie/localStorage
+        return user_id;  
       };
     
       var setId = function(id) {
         user_id = id;     
-        // Also set this in cookie/localStorage
+
+      };
+
+      var getStorageId = function() {
+        return storage_id; 
+      };
+    
+      var setStorageId = function(id) {
+        storage_id = id;     
       };
   
     return {
       getName: getName,
       setName: setName,
       getId: getId,
-      setId:setId
+      setId:setId,
+      getStorageId:getStorageId,
+      setStorageId:setStorageId,
     }
   
   })();
   
-  export default UserProfile;
+  export default Profile;
