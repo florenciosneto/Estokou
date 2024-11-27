@@ -5,6 +5,7 @@ import Login from './Login';
 import Home from './Home';
 import Dashboad from './Dashboard'
 import RegisterProduct from './RegisterProduct';
+import RegisterStorage from './RegisterStorage';
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
             <Route path="/login" element={<Login/>}/>
             <Route path="/usuario" element={<Dashboad/>}/>
             <Route path="/usuario/produtos" element={<RegisterProduct/>}/>
+            <Route path="/usuario/estoque" element={<RegisterStorage/>}/>
             
             </Routes>
         </Router>
