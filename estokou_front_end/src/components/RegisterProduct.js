@@ -14,6 +14,7 @@ const RegisterProduct = () => {
 
     const navigate = useNavigate()
     const [name, setName] = useState()
+    const [supplier, setSupplier] = useState()
     const [amount, setAmount] = useState()
     const [price, setPrice] = useState()
     const [checkbox, setCheckbox] = useState()
@@ -31,7 +32,8 @@ const RegisterProduct = () => {
 
         try {
             const response = await api.post("/api/produto", {
-                nome: name,  // Envia o valor diretamente
+                nome: name,
+                fornecedor:supplier,
                 quantidade: amount,
                 preco: parseFloat(price),
                 fragilidade: checkbox,
@@ -68,6 +70,10 @@ const RegisterProduct = () => {
                     <Form.Group className="mb-3" controlId="Name" value={name} onChange={(e) => setName(e.target.value)} name='name'>
                         <Form.Label>Insira o seu nome do produto</Form.Label>
                         <Form.Control type="text" placeholder="Feijão" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="Supplier" value={supplier} onChange={(e) => setSupplier(e.target.value)} name='supplier'>
+                        <Form.Label>Insira o seu nome do fornecedor</Form.Label>
+                        <Form.Control type="text" placeholder="Slup" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} name='amount'>
                         <Form.Label>Insira a Quantidade</Form.Label>
