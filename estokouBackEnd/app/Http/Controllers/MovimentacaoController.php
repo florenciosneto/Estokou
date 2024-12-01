@@ -48,10 +48,10 @@ class MovimentacaoController extends Controller
             Aqui atualiza a quantidade de produtos, adicionando ou subtraindo ao produto existente a quantidade
             informada na movimentação
             */
-            } else if ($produto && $operacao) {
+            } else if ($produto && $operacao == true) {
                 $produto->quantidade += $quantidadeMovi;
                 $produto->save();
-            } else if ($produto && !$operacao) {
+            } else if ($produto && $operacao == false) {
                 $produto->quantidade -= $quantidadeMovi;
                 $produto->save();
             

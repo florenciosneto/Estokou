@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UsuarioController extends Controller
 {
 
     public function index()
     {
-        $usuario = usuario::all();
-        return $usuario;
+        $email = request()->input('email');
+        $usuario = DB::table('usuarios');
+        if ($email) {
+            $usuario->where('email', '=', $email);
+        }
+        return $usuario->get();
     }
 
     public function store(Request $request)

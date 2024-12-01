@@ -9,6 +9,7 @@ import { useState } from "react";
 import api from "../servico/App";
 import { useNavigate } from 'react-router-dom';
 import profile from './Profiles';
+// import SuapLogin from './SuapLogin';
 
 
 const Register = () => {
@@ -36,7 +37,6 @@ const Register = () => {
         }
              
     }
-        const [data, setData] = useState();
         const navigate = useNavigate()
         const [name,setName] = useState()
         const [email,setEmail] = useState()
@@ -70,9 +70,11 @@ const Register = () => {
                     <Form.Group className="mb-3" controlId="Checkbox" value={checkbox} onChange={handleCheckbox}>
                         <Form.Check type="checkbox" label="Eu concordo com os termos que a empresa não escreveu ainda" />
                     </Form.Group>
+                    {/* <SuapLogin/> */}
                     <Button variant="primary" type="submit">
                         Enviar
                     </Button>
+    
                     
                 </Form>
             </div>

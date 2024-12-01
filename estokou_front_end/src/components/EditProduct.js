@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import BaseBoard from './BaseBoard';
-import '../css/RegisterProduct.css';
+import '../css/EditProduct.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -28,14 +28,14 @@ const EditProduct = () => {
 
         const fetchProdutos = async () => {
             try {
-                const responseProd = await api.get('/api/produto?id='+idProd);
-                const valueProd = responseProd.data[0];
-                setAmount(valueProd.quantidade);
-                setName(valueProd.nome);
-                setPrice(valueProd.preco);
-                setCheckbox(valueProd.checkbox);
+                const responseProd = await api.get('/api/produto/'+profile.getProductId());
+                setAmount(responseProd.data.quantidade);
+                setName(responseProd.data.nome);
+                setPrice(responseProd.data.preco);
+                setCheckbox(responseProd.data.checkbox);
             } catch (err) {
                 console.error("Erro ao buscar produtos: ", err);
+                console.log(profile.getProductId())
             }
         };
         fetchProdutos();
@@ -45,7 +45,7 @@ const EditProduct = () => {
         e.preventDefault()
 
         try {
-            const response = await api.put("/api/produto?id="+idProd, {
+            await api.put("/api/produto/"+profile.getProductId(), {
                 nome: name,  // Envia o valor diretamente
                 quantidade: amount,
                 preco: parseFloat(price),
@@ -57,6 +57,7 @@ const EditProduct = () => {
         } catch (err) {
             console.error("Erro ao atualizar o Produto: ", err);
             alert("Ocorreu um erro ao atualizar o Produto.");
+            console.log(profile.getProductId())
         }
 
 

@@ -23,6 +23,14 @@ var Profile = (function() {
     sessionStorage.setItem("storage_id", id);     
   };
 
+  var getProductId = function() {
+    return sessionStorage.getItem("product_id") || 0; 
+  };
+
+  var setProductId = function(id) {
+    sessionStorage.setItem("product_id", id);     
+  };
+
   var getStorageName = function() {
     return sessionStorage.getItem("storage_name") || ""; 
   };
@@ -40,6 +48,8 @@ var Profile = (function() {
     setStorageId: setStorageId,
     getStorageName: getStorageName,
     setStorageName: setStorageName,
+    getProductId: getProductId,
+    setProductId: setProductId,
   };
 })();
 
