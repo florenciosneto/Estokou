@@ -5,13 +5,18 @@ use App\Models\movimentacao;
 use Illuminate\Http\Request;
 use App\Models\Estoques;
 use App\Models\produto;
+use Illuminate\Support\Facades\DB;
 
 class MovimentacaoController extends Controller
 {
     public function index()
     {
-        $movimentacao = movimentacao::all();
-        return $movimentacao;
+        $idEstoque = request()->input('id_estoque');
+        $movimentacao = DB::table('movimentacaos');
+        if ($idEstoque) {
+            $movimentacao->where('id_estoque', '=', $idEstoque);
+        }
+        return $movimentacao->get();
     }
 
     public function store(Request $request)

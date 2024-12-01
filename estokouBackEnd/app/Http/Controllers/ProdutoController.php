@@ -1,17 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class ProdutoController extends Controller
 {
 
     public function index()
     {
-        $produto = produto::all();
-        return $produto;
+        $id = request()->input('id');
+        $produtos = DB::table('produtos');
+        if ($id) {
+            $produtos->where('id', '=', $id);
+        }
+        return $produtos->get();
     }
 
     public function store(Request $request)
@@ -61,3 +66,4 @@ class ProdutoController extends Controller
         $produto->delete();
     }
 }
+?>

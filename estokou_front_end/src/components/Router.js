@@ -6,6 +6,7 @@ import Home from './Home';
 import Dashboad from './Dashboard'
 import RegisterProduct from './RegisterProduct';
 import RegisterStorage from './RegisterStorage';
+import EditProduct from './EditProduct';
 
 
 const App = () => {
@@ -17,7 +18,9 @@ const App = () => {
             <Route path="/login" element={<Login/>}/>
             <Route path="/usuario" element={<Dashboad/>}/>
             <Route path="/usuario/produtos" element={<RegisterProduct/>}/>
+            <Route path="/usuario/produtos/edicao" element={<EditProduct/>}/>
             <Route path="/usuario/estoque" element={<RegisterStorage/>}/>
+            
             
             </Routes>
         </Router>
