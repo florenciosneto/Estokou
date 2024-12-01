@@ -9,11 +9,11 @@ function TableProdut() {
     const [produtos, setProdutos] = useState([]); // Estado para armazenar os produtos
     const [search, setSearch] = useState(""); // Estado para o campo de busca
 
-    // Busca os produtos ao montar o componente
     useEffect(() => {
         const fetchProdutos = async () => {
+            const storageId = profile.getStorageId();
             try {
-                const responseMovi = await api.get('/api/movimentacao?id_estoque=' + profile.getStorageId()); // Altere para o endpoint correto
+                const responseMovi = await api.get('/api/movimentacao?id_estoque=' + storageId); // Altere para o endpoint correto
                 const movimentacoes = responseMovi.data;
 
                 // Extrai os IDs dos produtos das movimentações
@@ -29,14 +29,17 @@ function TableProdut() {
 
                 // Extrai os dados de cada produto
                 const produtos = responses.flatMap(res => res.data);
+                console.log(storageId)
                 setProdutos(produtos);
+
 
             } catch (err) {
                 console.error("Erro ao buscar produtos: ", err);
-            }
         };
+    }
         fetchProdutos();
     }, []);
+
     const produtosFiltrados = produtos
         .filter((produto, index, self) =>
             self.findIndex(p => p.id === produto.id) === index
@@ -112,8 +115,8 @@ function TableProdut() {
                     ))}
                     <a href=''><button>Gerar relatório</button></a>
                 </tbody>
-            </table>
 
+            </table>
         </div >
     );
 }

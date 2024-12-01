@@ -5,9 +5,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserNavbar from './UserNavbar';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from "../servico/App";
 import profile from './Profiles';
+import Checker from './Checker';
 
 const EditProduct = () => {
 
@@ -16,7 +17,6 @@ const EditProduct = () => {
     const [amount, setAmount] = useState()
     const [price, setPrice] = useState()
     const [checkbox, setCheckbox] = useState()
-    const { idProd } = useParams();
 
     function handleCheckbox(e) {
         setCheckbox(e.target.checked);
@@ -66,6 +66,7 @@ const EditProduct = () => {
     return (
 
         <div className='EditProductBody'>
+            <Checker/>
             <UserNavbar />
             <div className='form'>
                 <Form onSubmit={AtualizarProduto}>

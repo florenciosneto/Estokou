@@ -28,8 +28,6 @@ const Register = () => {
             var location = response.data.location.substring(api.getUri().length);
             profile.setName(name);
             profile.setId((await api.get(location)).data.id)
-            console.log(profile.getId())
-            console.log((await api.get(location)).data.id)
             navigate("/usuario")
         } catch (err) {
             console.error("Erro ao cadastrar usuário: ", err);

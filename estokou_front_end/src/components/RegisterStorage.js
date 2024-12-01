@@ -8,6 +8,7 @@ import UserNavbar from './UserNavbar';
 import { useNavigate } from 'react-router-dom';
 import profile from './Profiles';
 import api from "../servico/App";
+import Checker from './Checker';
 
 
 const RegisterStorage = () => {
@@ -37,11 +38,11 @@ const RegisterStorage = () => {
 
     const navigate = useNavigate()
     const [name, setName] = useState()
-    const [id,setId] = useState();
 
     return (
 
         <div className='RegisterStorageBody'>
+            <Checker/>
             <UserNavbar />
             <div className='form'>
                 <Form onSubmit={CadastrarEstoque}>

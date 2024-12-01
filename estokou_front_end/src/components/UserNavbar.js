@@ -7,7 +7,7 @@ function UserNavbar() {
     function handleExit() {
         profile.setName("");
         profile.setId(0);
-        profile.setStorageId(0);
+        profile.setStorageId(null);
         profile.setStorageName("");
     }
 

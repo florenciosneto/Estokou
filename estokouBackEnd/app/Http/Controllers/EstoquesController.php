@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 use App\Models\Estoques;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use Illuminate\Support\Facades\DB;
 
 class EstoquesController extends Controller
 {
 
     public function index()
     {
-        $estoque = Estoques::all();
-        return $estoque;
+        $idUsuario = request()->input('id_usuario');
+        $estoque = DB::table('estoques');
+        if ($idUsuario) {
+            $estoque->where('id_usuario', '=', $idUsuario);
+        }
+        return $estoque->get();
     }
 
     public function store(Request $request)
