@@ -303,6 +303,10 @@ paths:
                   type: string
                   description: O nome do produto.
                   example: pipoca
+                fornecedor:
+                  type: string
+                  description: O fornecedor do produto.
+                  example: slup
                 preco:
                   type: integer
                   description: preço:.
@@ -355,6 +359,10 @@ paths:
                   type: string
                   description: O nome do produto.
                   example: Pipoca
+                fornecedor:
+                  type: string
+                  description: O fornecedor do produto.
+                  example: slup
                 preco:
                   type: integer
                   description: preco:.

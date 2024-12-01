@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string("nome");
+            $table->string("fornecedor");
             $table->boolean("fragilidade");
             $table->integer("quantidade");
             $table->float("preco");

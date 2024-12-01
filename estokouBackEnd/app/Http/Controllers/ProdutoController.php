@@ -22,6 +22,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $nome = $request->input('nome');
+        $fornecedor = $request->input('fornecedor');
         $quantidade = $request->input('quantidade');
         $preco = $request->input('preco');
         $fragilidade = $request->input('fragilidade');
@@ -30,7 +31,7 @@ class ProdutoController extends Controller
         } else {
             $fragilidade = true;
         }
-        $p = produto::create(['nome' => $nome, 'quantidade' => $quantidade, 'preco' => $preco, 'fragilidade' => $fragilidade]);
+        $p = produto::create(['nome' => $nome,'fornecedor' => $fornecedor, 'quantidade' => $quantidade, 'preco' => $preco, 'fragilidade' => $fragilidade]);
         $id = $p->id;
         return response(
             ['location' => route('produto.show', $id)],
@@ -48,6 +49,9 @@ class ProdutoController extends Controller
         $nome = request()->input('nome');
         if ($nome)
             $produto->nome = $nome;
+        $fornecedor = request()->input('fornecedor');
+        if ($fornecedor)
+            $produto->fornecedor = $fornecedor;
         $preco = request()->input('preco');
         if ($preco)
             $produto->preco = $preco;
