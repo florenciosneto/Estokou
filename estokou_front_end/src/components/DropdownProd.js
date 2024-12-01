@@ -11,7 +11,7 @@ function DropdownProd() {
     useEffect(() => {
         const fetchEstoques = async () => {
             try {
-                const response = await api.get('/api/estoques'); // Certifique-se de que o endpoint correto está sendo usado
+                const response = await api.get('/api/estoques?id_usuario=' + Profile.getId()); // Certifique-se de que o endpoint correto está sendo usado
                 setEstoques(response.data); // Armazena os estoques no estado
             } catch (err) {
                 console.error("Erro ao buscar estoques: ", err);
@@ -46,7 +46,7 @@ function DropdownProd() {
                         </Dropdown.Item>
                     ))
                 ) : (
-                    <Dropdown.Item disabled>Carregando estoques...</Dropdown.Item> // Exibe uma mensagem enquanto os estoques são carregados
+                    <Dropdown.Item disabled>Você não tem estoques cadastrados</Dropdown.Item> // Exibe uma mensagem enquanto os estoques são carregados
                 )}
             </Dropdown.Menu>
         </Dropdown>

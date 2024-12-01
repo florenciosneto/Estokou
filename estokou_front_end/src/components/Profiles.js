@@ -16,7 +16,7 @@ var Profile = (function() {
   };
 
   var getStorageId = function() {
-    return sessionStorage.getItem("storage_id") || 0; 
+    return sessionStorage.getItem("storage_id") || null; 
   };
 
   var setStorageId = function(id) {

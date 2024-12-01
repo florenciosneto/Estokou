@@ -8,6 +8,7 @@ import UserNavbar from './UserNavbar';
 import { useNavigate } from 'react-router-dom';
 import api from "../servico/App";
 import profile from './Profiles';
+import Checker from './Checker';
 
 const RegisterProduct = () => {
 
@@ -60,6 +61,7 @@ const RegisterProduct = () => {
     return (
 
         <div className='RegisterProductBody'>
+            <Checker/>
             <UserNavbar />
             <div className='form'>
                 <Form onSubmit={CadastrarProduto}>
