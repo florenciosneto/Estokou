@@ -68,7 +68,7 @@ const Register = () => {
                     <Form.Group className="mb-3" controlId="Checkbox" value={checkbox} onChange={handleCheckbox}>
                         <Form.Check type="checkbox" label="Eu concordo com os termos que a empresa não escreveu ainda" />
                     </Form.Group>
-                    {/* <SuapLogin/> */}
+                    {/* { <SuapLogin/> } */}
                     <Button variant="primary" type="submit">
                         Enviar
                     </Button>

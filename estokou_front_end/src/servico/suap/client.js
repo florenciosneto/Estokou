@@ -1,4 +1,4 @@
-
+import Cookies from 'js-cookie'
 /**
  * Classe que representa um token de autorização.
  *

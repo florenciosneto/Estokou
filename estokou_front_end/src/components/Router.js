@@ -8,6 +8,7 @@ import RegisterProduct from './RegisterProduct';
 import RegisterStorage from './RegisterStorage';
 import EditProduct from './EditProduct';
 import DiscountProduct from './DiscountProduct';
+import Report from './Report'
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/registro" element={<Register />} />
             <Route path="/login" element={<Login/>}/>
             <Route path="/usuario" element={<Dashboad/>}/>
+            <Route path="/usuario/relatorio" element={<Report/>}/>
             <Route path="/usuario/produtos" element={<RegisterProduct/>}/>
             <Route path="/usuario/produtos/desconto" element={<DiscountProduct/>}/>
             <Route path="/usuario/produtos/edicao" element={<EditProduct/>}/>

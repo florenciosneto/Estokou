@@ -113,7 +113,7 @@ function TableProdut() {
                             </td>
                         </tr>
                     ))}
-                    <a href=''><button>Gerar relatório</button></a>
+                    <a href='/usuario/relatorio'><button>Gerar relatório</button></a>
                 </tbody>
 
             </table>
