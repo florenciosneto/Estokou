@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer("id_estoque");
             $table->integer("id_prod");
             $table->date("data");
+            $table->float("valorTotal");
             $table->integer("quantidadeMovi");
             $table->boolean("operacao");
         });

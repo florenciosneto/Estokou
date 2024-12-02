@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import api from "../servico/App";
 import profile from './Profiles';
 import Checker from './Checker';
+import {CheckerStorage} from './Checker'
 
 const RegisterProduct = () => {
 
@@ -47,6 +48,7 @@ const RegisterProduct = () => {
                 id_prod: produtoID,
                 data: `${dia}/${mes}/${ano}`,
                 quantidadeMovi: amount,
+                valorTotal: (amount * price),
                 operacao: 1,
             });
 
@@ -64,6 +66,7 @@ const RegisterProduct = () => {
 
         <div className='RegisterProductBody'>
             <Checker/>
+            <CheckerStorage/>
             <UserNavbar />
             <div className='form'>
                 <Form onSubmit={CadastrarProduto}>

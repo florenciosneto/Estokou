@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\movimentacao;
 use Illuminate\Http\Request;
 use App\Models\Estoques;
@@ -24,6 +25,7 @@ class MovimentacaoController extends Controller
         $idEstoque = $request->input('id_estoque');
         $estoque = Estoques::find($idEstoque);
         $idproduto = $request->input('id_prod');
+        $valorTotal = $request->input('valorTotal');
         $produto = produto::find($idproduto);
         if ($estoque) {
             $data = $request->input('data');
@@ -44,7 +46,7 @@ class MovimentacaoController extends Controller
                     ['error' => 'Você não pode subtrair de um produto que não existe ou subtrair uma quantidade maior que a existente'],
                     404
                 );
-            /* 
+                /* 
             Aqui atualiza a quantidade de produtos, adicionando ou subtraindo ao produto existente a quantidade
             informada na movimentação
             */
@@ -54,12 +56,12 @@ class MovimentacaoController extends Controller
             } else if ($produto && $operacao == false) {
                 $produto->quantidade -= $quantidadeMovi;
                 $produto->save();
-            
-            //Aqui cria um produto, caso ele não exista
+
+                //Aqui cria um produto, caso ele não exista
             } else if (!$produto && $operacao) {
                 $produto = produto::create(['nome' => '???', 'quantidade' => $quantidadeMovi, 'preco' => 0, 'fragilidade' => false]);
             }
-            $movimentacao = movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidadeMovi' => $quantidadeMovi, 'data' => $data, 'operacao' => $operacao]);
+            $movimentacao = movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidadeMovi' => $quantidadeMovi, 'valorTotal' => $valorTotal, 'data' => $data, 'operacao' => $operacao]);
 
             return response(
                 ['location' => route('movimentacao.show', $movimentacao->id)],
@@ -105,6 +107,10 @@ class MovimentacaoController extends Controller
         $data = request()->input('data');
         if ($data)
             $movimentacao->data = $data;
+
+        $valorTotal = request()->input('valorTotal');
+        if ($valorTotal)
+            $movimentacao->valorTotal = $valorTotal;
 
         $movimentacao->save();
     }

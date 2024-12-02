@@ -10,7 +10,7 @@ class movimentacao extends Model
     use HasFactory;
     
     protected $fillable = [
-     'id_estoque',"id_prod",'quantidadeMovi','operacao',"data"
+     'id_estoque',"id_prod",'quantidadeMovi','operacao',"data","valorTotal"
     ];
     
 }

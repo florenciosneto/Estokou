@@ -3,7 +3,6 @@ import Navbar from "./Navbar";
 import BaseBoard from './BaseBoard';
 import '../css/Home.css';
 
-
 const Home = () => {
     return (
             <div className='contentBody'>

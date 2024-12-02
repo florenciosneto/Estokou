@@ -29,7 +29,6 @@ function TableProdut() {
 
                 // Extrai os dados de cada produto
                 const produtos = responses.flatMap(res => res.data);
-                console.log(storageId)
                 setProdutos(produtos);
 
 

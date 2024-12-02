@@ -16,7 +16,6 @@ function TableReport() {
                 const responseMovi = await api.get('/api/movimentacao?id_estoque=' + storageId); // Altere para o endpoint correto
                 const movimentacoes = responseMovi.data;
                 setMovimentacoes(movimentacoes);
-                console.log("data:", responseMovi.data)
             } catch (err) {
                 console.error("Erro ao buscar estoques: ", err);
             }
@@ -24,14 +23,22 @@ function TableReport() {
         fetchEstoques();
     }, [storageId]);
 
+    // Filtrar entradas e saídas
+    const entradas = movimentacoes.filter(movimentacao => movimentacao.operacao === 1);
+    const saidas = movimentacoes.filter(movimentacao => movimentacao.operacao !== 1);
+    console.log("entradas", movimentacoes[0].operacao)
+    // Calcular totais
+    const totalEntradas = entradas.reduce((acc, mov) => acc + mov.quantidadeMovi, 0);
+    const totalSaidas = saidas.reduce((acc, mov) => acc + mov.quantidadeMovi, 0);
+    const saldoFinal = totalEntradas - totalSaidas;
+
     const movimentacoesFiltrados = movimentacoes
-        console.log("filtrado",movimentacoesFiltrados)
-        console.log(movimentacoes)
     return (
         <div className='container'>
             <UserNavbar />
+
             <h1>Relatório de Movimentações</h1>
-            
+
             <Toast>
                 <Toast.Header>
                     <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
@@ -45,56 +52,50 @@ function TableReport() {
                     <small>12/10/22</small>
                 </Toast.Header>
             </Toast>
-            
-            {/* <div className="container"> */}
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"></link>
 
-                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"></link>
-
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Movimentações</th>
-                            <th>Data</th>
-                            <th>Quantidade</th>
-                            <th>Produtos</th>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Movimentações</th>
+                        <th>Data</th>
+                        <th>Quantidade</th>
+                        <th>Produtos</th>
+                        <th>operação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {movimentacoesFiltrados.map((movimentacao) => (
+                        <tr key={movimentacao.id}>
+                            <td>{movimentacao.id || "N/A"}</td>
+                            <td>{movimentacao.data || "N/A"}</td>
+                            <td>{movimentacao.quantidadeMovi || "N/A"}</td>
+                            <td>{movimentacao.id_prod || "N/A"}</td>
+                            <td>{movimentacao.operacao ? "Entrada" : "Saída"}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {movimentacoesFiltrados.map((movimentacao) => (
-                            <tr key={movimentacao.id}>
-                                <td>{movimentacao.id || "N/A"}</td>
-                                <td>{movimentacao.data || "N/A"}</td>
-                                <td>{movimentacao.quantidadeMovi || "N/A"}</td>
-                                <td>{movimentacao.id_prod || "N/A"}</td>
-                            </tr>
-                        ))}
-                    </tbody>
+                    ))}
+                </tbody>
+            </table>
 
-                </table>
-                <Toast.Header>
-                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                    <strong className="me-auto">Entrada R$</strong>
-                    <small>190.000 R$</small>
-                </Toast.Header>
-                <Toast.Header>
-                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                    <strong className="me-auto">Despesas R$</strong>
-                    <small>190.000 R$</small>
-                </Toast.Header>
-                <Toast.Header>
-                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                    <strong className="me-auto">Balanço final R$</strong>
-                    <small>190.000 R$</small>
-                </Toast.Header>
-                <Toast.Header>
-                    <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-                    <strong className="me-auto">Lucro R$</strong>
-                    <small>190.000 R$</small>
-                </Toast.Header>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Valor Total de Entrada</th>
+                        <th>Valor Total de Saída</th>
+                        <th>Balanço Final</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td>{totalEntradas.toFixed(2)}</td>
+                        <td>{totalSaidas.toFixed(2)}</td>
+                        <td>{saldoFinal.toFixed(2)}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            {/* </div > */}
+        </div >
 
-        </div>
     );
 }
 export default TableReport;
