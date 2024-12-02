@@ -23,14 +23,10 @@ function TableReport() {
         };
         fetchEstoques();
     }, [storageId]);
-    console.log(movimentacoes)
-    console.log(storageId)
+
     const movimentacoesFiltrados = movimentacoes
-
-        .filter((movimentacao) =>
-            movimentacao.nome?.toLowerCase().includes(search.toLowerCase())
-        );
-
+        console.log("filtrado",movimentacoesFiltrados)
+        console.log(movimentacoes)
     return (
         <div>
             <UserNavbar />
@@ -66,7 +62,7 @@ function TableReport() {
                             <tr key={movimentacao.id}>
                                 <td>{movimentacao.id || "N/A"}</td>
                                 <td>{movimentacao.data || "N/A"}</td>
-                                <td>{movimentacao.quantidade || "N/A"}</td>
+                                <td>{movimentacao.quantidadeMovi || "N/A"}</td>
                                 <td>{movimentacao.id_prod || "N/A"}</td>
                             </tr>
                         ))}
