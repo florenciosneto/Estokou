@@ -28,8 +28,10 @@ function TableReport() {
         console.log("filtrado",movimentacoesFiltrados)
         console.log(movimentacoes)
     return (
-        <div>
+        <div className='container'>
             <UserNavbar />
+            <h1>Relatório de Movimentações</h1>
+            
             <Toast>
                 <Toast.Header>
                     <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
@@ -43,8 +45,8 @@ function TableReport() {
                     <small>12/10/22</small>
                 </Toast.Header>
             </Toast>
-            <h1>Relatório de Movimentações</h1>
-            <div className="container">
+            
+            {/* <div className="container"> */}
 
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"></link>
 
@@ -90,7 +92,7 @@ function TableReport() {
                     <small>190.000 R$</small>
                 </Toast.Header>
 
-            </div >
+            {/* </div > */}
 
         </div>
     );

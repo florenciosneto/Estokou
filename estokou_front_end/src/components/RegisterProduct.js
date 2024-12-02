@@ -92,7 +92,7 @@ const RegisterProduct = () => {
                     </Button>
                 </Form>
             </div>
-            <BaseBoard></BaseBoard>
+            {/* <BaseBoard></BaseBoard> */}
         </div>
     );
 };

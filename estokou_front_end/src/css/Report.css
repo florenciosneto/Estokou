@@ -1,3 +1,17 @@
+.container {
+    /* background-color: #A0CFEB; */
+    height: 100vh;
+    width: 100%;
+}
+.toast-header {
+    flex-direction: column;
+}
+
+
+#root {
+    background-color: #A0CFEB;
+    height: 100vh;
+}
 table {
     width: 100%;
     border-collapse: collapse;

@@ -1,3 +1,7 @@
+.RegisterProductBody {
+    height: 100vh;
+}
+
 .DiscountProductBody{
     background-color: #A0CFEB;
     display: flex;
