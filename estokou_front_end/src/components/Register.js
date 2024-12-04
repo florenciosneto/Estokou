@@ -31,7 +31,7 @@ const Register = () => {
             navigate("/usuario")
         } catch (err) {
             console.error("Erro ao cadastrar usuário: ", err);
-            alert("Ocorreu um erro ao cadastrar o usuário.");
+            alert(err.response.data.error);
         }
              
     }
@@ -77,7 +77,7 @@ const Register = () => {
                 </Form>
             </div>
 
-            <BaseBoard></BaseBoard>
+            <BaseBoard/>
 
         </div>
     );

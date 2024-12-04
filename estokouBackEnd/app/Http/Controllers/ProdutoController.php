@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,14 +25,15 @@ class ProdutoController extends Controller
         $nome = $request->input('nome');
         $fornecedor = $request->input('fornecedor');
         $quantidade = $request->input('quantidade');
-        $preco = $request->input('preco');
+        $valorCompra = $request->input('valorCompra');
+        $valorVenda = $request->input('valorVenda');
         $fragilidade = $request->input('fragilidade');
         if ($fragilidade == null) {
             $fragilidade = false;
         } else {
             $fragilidade = true;
         }
-        $p = produto::create(['nome' => $nome,'fornecedor' => $fornecedor, 'quantidade' => $quantidade, 'preco' => $preco, 'fragilidade' => $fragilidade]);
+        $p = produto::create(['nome' => $nome, 'fornecedor' => $fornecedor, 'quantidade' => $quantidade, 'valorCompra' => $valorCompra, 'valorVenda' => $valorVenda, 'fragilidade' => $fragilidade]);
         $id = $p->id;
         return response(
             ['location' => route('produto.show', $id)],
@@ -52,9 +54,12 @@ class ProdutoController extends Controller
         $fornecedor = request()->input('fornecedor');
         if ($fornecedor)
             $produto->fornecedor = $fornecedor;
-        $preco = request()->input('preco');
-        if ($preco)
-            $produto->preco = $preco;
+        $valorCompra = request()->input('valorCompra');
+        if ($valorCompra)
+            $produto->valorCompra = $valorCompra;
+        $valorVenda = request()->input('valorVenda');
+        if ($valorVenda)
+            $produto->valorVenda = $valorVenda;
         $quantidade = request()->input('quantidade');
         if ($quantidade)
             $produto->quantidade = $quantidade;
@@ -70,4 +75,3 @@ class ProdutoController extends Controller
         $produto->delete();
     }
 }
-?>

@@ -66,7 +66,7 @@ const Login = () => {
                 </Form>
             </div>
 
-            <BaseBoard></BaseBoard>
+            <BaseBoard/>
         </div>
     );
 };

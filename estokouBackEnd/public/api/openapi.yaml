@@ -200,6 +200,10 @@ paths:
                   type: integer
                   description: id do produto associado.
                   example: 1
+                valorTotal:
+                  type: integer
+                  description: valor total dessa movimentação.
+                  example: 120
                 data:
                   type: string
                   description: data da movimentacao.
@@ -363,9 +367,13 @@ paths:
                   type: string
                   description: O fornecedor do produto.
                   example: slup
-                preco:
+                valorCompra:
                   type: integer
-                  description: preco:.
+                  description: valor de Compra do produto:.
+                  example: 100
+                valorVenda:
+                  type: integer
+                  description: valor de Venda do produto:.
                   example: 100
                 quantidade:
                   type: integer

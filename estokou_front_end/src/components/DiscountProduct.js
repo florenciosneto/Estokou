@@ -15,6 +15,7 @@ const DiscountProduct = () => {
     const navigate = useNavigate()
     const [id, setId] = useState()
     const [amount, setAmount] = useState()
+    const [totalValue, setTotalValue] = useState()
 
     const DescontarProduto = async (e) => {
         e.preventDefault()
@@ -24,11 +25,14 @@ const DiscountProduct = () => {
         const ano = dataAtual.getFullYear();
 
         try {
+            const response = await api.get(`/api/produto/${id}`)
+            console.log(response)
             await api.post("/api/movimentacao", {
                 id_estoque: profile.getStorageId(),  // Envia o valor diretamente
                 id_prod: id,
                 data: `${dia}/${mes}/${ano}`,
                 quantidadeMovi: amount,
+                valorTotal: amount * response.data.valorVenda,
                 operacao: 0,
             });
 
@@ -36,7 +40,9 @@ const DiscountProduct = () => {
             navigate("/usuario")
         } catch (err) {
             console.error("Erro ao Descontar Produto: ", err);
-            console.log(profile.getStorageId())
+            console.log("estoque",profile.getStorageId())
+            console.log("id",id)
+            console.log("quantidae",amount)
             alert("Ocorreu um erro ao descontar o Produto.");
         }
 

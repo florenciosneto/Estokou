@@ -24,12 +24,20 @@ class UsuarioController extends Controller
         $nome = $request->input('nome');
         $email = $request->input('email');
         $senha = $request->input('senha');
-        $p = usuario::create(['nome' => $nome, 'email' => $email, 'senha' => $senha]);
-        $id = $p->id;
-        return response(
-            ['location' => route('usuarios.show', $id)],
-            201
-        );
+        $verificadorUsuario = Usuario::where('email', $email)->first();
+        if ($verificadorUsuario) {
+            return response(
+                ['error' => 'Já existe um usuário com esse email'],
+                409
+            );
+        } else {
+            $p = usuario::create(['nome' => $nome, 'email' => $email, 'senha' => $senha]);
+            $id = $p->id;
+            return response(
+                ['location' => route('usuarios.show', $id)],
+                201
+            );
+        }
     }
 
     public function show(usuario $usuario)
@@ -49,9 +57,8 @@ class UsuarioController extends Controller
         if ($senha)
             $usuario->senha = $senha;
         $usuario->save();
-
     }
-    
+
     public function destroy(usuario $usuario)
     {
         $usuario->delete();

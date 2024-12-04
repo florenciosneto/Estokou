@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import api from "../servico/App";
 import profile from './Profiles';
 import Checker from './Checker';
-import {CheckerStorage} from './Checker'
+import { CheckerStorage } from './Checker'
 
 const RegisterProduct = () => {
 
@@ -17,7 +17,8 @@ const RegisterProduct = () => {
     const [name, setName] = useState()
     const [supplier, setSupplier] = useState()
     const [amount, setAmount] = useState()
-    const [price, setPrice] = useState()
+    const [purchaseValue, setPurchaseValue] = useState()
+    const [saleValue, setSaleValue] = useState()
     const [checkbox, setCheckbox] = useState()
 
     function handleCheckbox(e) {
@@ -26,29 +27,31 @@ const RegisterProduct = () => {
 
     const CadastrarProduto = async (e) => {
         e.preventDefault()
+
         const dataAtual = new Date();
         const dia = dataAtual.getDate();
         const mes = dataAtual.getMonth() + 1;
         const ano = dataAtual.getFullYear();
-
         try {
             const response = await api.post("/api/produto", {
                 nome: name,  // Envia o valor diretamente
-                quantidade: amount,
+                quantidade: amount - amount, // por algum motivo divino ele tava somando 2 vezes, não consegui resolver tive que fazer 
                 fornecedor: supplier,
-                preco: parseFloat(price),
+                valorCompra: parseFloat(purchaseValue),
+                valorVenda: parseFloat(saleValue),
                 fragilidade: checkbox,
             })
-
+            console.log("data:", response.data.quantidade);
+            console.log("config:", response.config);
             var location = response.data.location.substring(api.getUri().length);
             var produtoID = ((await api.get(location)).data.id)
-
+            console.log("depois:", amount)
             await api.post("/api/movimentacao", {
                 id_estoque: profile.getStorageId(),  // Envia o valor diretamente
                 id_prod: produtoID,
                 data: `${dia}/${mes}/${ano}`,
                 quantidadeMovi: amount,
-                valorTotal: (amount * price),
+                valorTotal: amount * purchaseValue,
                 operacao: 1,
             });
 
@@ -59,14 +62,13 @@ const RegisterProduct = () => {
             alert("Ocorreu um erro ao cadastrar o Produto.");
         }
 
-
     }
 
     return (
 
         <div className='RegisterProductBody'>
-            <Checker/>
-            <CheckerStorage/>
+            <Checker />
+            <CheckerStorage />
             <UserNavbar />
             <div className='form'>
                 <Form onSubmit={CadastrarProduto}>
@@ -75,7 +77,7 @@ const RegisterProduct = () => {
                         <Form.Control type="text" placeholder="Feijão" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="Supplier" value={supplier} onChange={(e) => setSupplier(e.target.value)} name='supplier'>
-                        <Form.Label>Insira o seu nome do produto</Form.Label>
+                        <Form.Label>Insira o seu nome do fornecedor</Form.Label>
                         <Form.Control type="text" placeholder="Slup" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} name='amount'>
@@ -83,8 +85,12 @@ const RegisterProduct = () => {
                         <Form.Control type='number' placeholder="130" />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="Price" value={price} onChange={(e) => setPrice(e.target.value)} name='price'>
-                        <Form.Label>Insira o Preço Unitário</Form.Label>
+                    <Form.Group className="mb-3" controlId="PurchaseValue" value={purchaseValue} onChange={(e) => setPurchaseValue(e.target.value)} name='purchaseValue'>
+                        <Form.Label>Insira o valor unitário pelo qual o produto foi comprado</Form.Label>
+                        <Form.Control type="text" placeholder="120,00" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="SaleValue" value={saleValue} onChange={(e) => setSaleValue(e.target.value)} name='saleValue'>
+                        <Form.Label>Insira o valor unitário pelo qual ele será vendido</Form.Label>
                         <Form.Control type="text" placeholder="120,00" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" value={checkbox} onChange={handleCheckbox}>
@@ -95,7 +101,7 @@ const RegisterProduct = () => {
                     </Button>
                 </Form>
             </div>
-            {/* <BaseBoard></BaseBoard> */}
+            <BaseBoard/>
         </div>
     );
 };

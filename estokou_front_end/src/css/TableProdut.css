@@ -5,6 +5,7 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .header {
@@ -13,7 +14,7 @@
     align-items: center;
     margin-bottom: 20px;
 }
-.teste{
+.opcoes{
     display: flex;
     justify-content: space-around;
 }
@@ -29,23 +30,27 @@
     border-radius: 4px;
     margin-right: 10px;
 }
-
-.search-btn {
-    background-color: #D9D9D9;
-    color: black;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.search-btn:hover {
-    background-color: #a7a6a6;
-}
-
 .buttons {
     display: flex;
     gap: 5px;
+}
+
+.btn-report{
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.btn-report a{
+    background-color: #D9D9D9;
+ 
+
 }
 
 .btn {
@@ -88,4 +93,13 @@ table td {
 }
 a{
     text-decoration: none;
+}
+
+@media (max-width: 991px) {
+ .celulas{
+    display: none;
+ }
+ .header{
+    flex-direction: column;
+ }
 }

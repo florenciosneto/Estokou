@@ -1,8 +1,5 @@
-.RegisterProductBody {
-    height: 100vh;
-}
 
-.DiscountProductBody{
+.RegisterProductBody{
     background-color: #A0CFEB;
     display: flex;
     flex-direction: column;
@@ -10,6 +7,6 @@
     align-items: center;
 }
 
-.teste{
-    background-color: #A0CFEB;
+.form{
+    margin-bottom: 20px;
 }

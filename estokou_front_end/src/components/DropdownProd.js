@@ -5,7 +5,8 @@ import Profile from './Profiles';
 
 function DropdownProd() {
     const [estoques, setEstoques] = useState([]); // Estado para armazenar os estoques
-    const [selectedStorageId, setSelectedStorageId] = useState(null); // Estado para o ID do estoque selecionado
+    const [selectedStorageId, setSelectedStorageId] = useState(null);
+    const [selectedStorageName, setSelectedStorageName] = useState("");
 
     // Fetch estoques ao montar o componente
     useEffect(() => {
@@ -21,9 +22,11 @@ function DropdownProd() {
     }, []);
 
     // Atualiza o estoque selecionado
-    function handleTradeStorage(id) {
+    function handleTradeStorage(id, nome) {
         Profile.setStorageId(id); // Atualiza no objeto Profile
         setSelectedStorageId(id); // Atualiza no estado local
+        Profile.setStorageName(nome); // Atualiza no objeto Profile
+        setSelectedStorageName(nome); // Atualiza no estado local
         window.location.reload();
     }
 
@@ -39,8 +42,8 @@ function DropdownProd() {
                     estoques.map((estoque) => (
                         <Dropdown.Item 
                             key={estoque.id} 
-                            active={estoque.id === selectedStorageId} // Marca a opção selecionada
-                            onClick={() => handleTradeStorage(estoque.id)}
+                            active={selectedStorageId === estoque.id && selectedStorageName === estoque.nome} // Marca a opção selecionada
+                            onClick={() => handleTradeStorage(estoque.id, estoque.nome)}
                         >
                             {estoque.nome} {/* Ajuste para a propriedade que representa o nome do estoque */}
                         </Dropdown.Item>

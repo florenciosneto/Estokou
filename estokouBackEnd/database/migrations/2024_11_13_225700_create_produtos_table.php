@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string("fornecedor");
             $table->boolean("fragilidade");
             $table->integer("quantidade");
-            $table->float("preco");
+            $table->float("valorCompra");
+            $table->float("valorVenda");
         });
     }
 

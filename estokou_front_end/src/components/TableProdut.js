@@ -6,8 +6,8 @@ import DropdownProd from './DropdownProd';
 
 
 function TableProdut() {
-    const [produtos, setProdutos] = useState([]); // Estado para armazenar os produtos
-    const [search, setSearch] = useState(""); // Estado para o campo de busca
+    const [produtos, setProdutos] = useState([]); 
+    const [search, setSearch] = useState(""); 
 
     useEffect(() => {
         const fetchProdutos = async () => {
@@ -15,19 +15,11 @@ function TableProdut() {
             try {
                 const responseMovi = await api.get('/api/movimentacao?id_estoque=' + storageId); // Altere para o endpoint correto
                 const movimentacoes = responseMovi.data;
-
-                // Extrai os IDs dos produtos das movimentações
                 const produtoIds = movimentacoes.map(mov => mov.id_prod);
-
-                // Faz uma requisição para obter os produtos cujos IDs estão em produtoIds
                 const produtosPromises = produtoIds.map(id =>
                     api.get(`/api/produto?id=${id}`)
                 );
-
-                // Aguarda todas as requisições serem concluídas
                 const responses = await Promise.all(produtosPromises);
-
-                // Extrai os dados de cada produto
                 const produtos = responses.flatMap(res => res.data);
                 setProdutos(produtos);
 
@@ -54,7 +46,7 @@ function TableProdut() {
 
     function handleDelete(id) {
         if (window.confirm('Tem certeza de que deseja excluir este produto?')) {
-            const response1 = api.delete(`/api/produto/${id}`)
+            api.delete(`/api/produto/${id}`)
                 .then(() => {
                     alert('Produto excluído com sucesso!');
                     setProdutos((prevProdutos) => prevProdutos.filter(produto => produto.id !== id));
@@ -88,11 +80,11 @@ function TableProdut() {
                     <tr>
                         <th>id</th>
                         <th>Nome</th>
-                        <th>Quantidade</th>
-                        <th>Preço Unitário</th>
-                        <th>Preço Total</th>
-                        <th>Fragilidade</th>
-                        <th>Fornecedor</th>
+                        <th className='celulas'>Quantidade</th>
+                        <th>Valor de Compra</th>
+                        <th>Valor de Venda</th>
+                        <th className='celulas'>Fragilidade</th>
+                        <th className='celulas'>Fornecedor</th>
                         <th>Opções</th>
                     </tr>
                 </thead>
@@ -101,18 +93,18 @@ function TableProdut() {
                         <tr key={produto.id}>
                             <td>{produto.id}</td>
                             <td>{produto.nome}</td>
-                            <td>{produto.quantidade}</td>
-                            <td>{produto.preco.toFixed(2)}</td>
-                            <td>{(produto.quantidade * produto.preco).toFixed(2)}</td>
-                            <td>{produto.fragilidade ? "Sim" : "Não"}</td>
-                            <td>{produto.fornecedor || "N/A"}</td>
-                            <td className='teste'>
+                            <td className='celulas'>{produto.quantidade}</td>
+                            <td>{produto.valorCompra.toFixed(2)}</td>
+                            <td>{(produto.valorVenda).toFixed(2)}</td>
+                            <td className='celulas'>{produto.fragilidade ? "Sim" : "Não"}</td>
+                            <td className='celulas'>{produto.fornecedor || "N/A"}</td>
+                            <td className='opcoes'>
                                 <a href={`/usuario/produtos/edicao`} onClick={() => handleEdit(produto.id)}><i class="fa-solid fa-pen-to-square"> editar</i></a>
                                 <a onClick={() => handleDelete(produto.id)}><i class="fa-solid fa-trash">Apagar</i></a>
                             </td>
                         </tr>
                     ))}
-                    <a href='/usuario/relatorio'><button>Gerar relatório</button></a>
+                    <button className="btn-report"><a href='/usuario/relatorio'>Gerar relatório</a></button>
                 </tbody>
 
             </table>

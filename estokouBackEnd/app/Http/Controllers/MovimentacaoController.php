@@ -25,11 +25,11 @@ class MovimentacaoController extends Controller
         $idEstoque = $request->input('id_estoque');
         $estoque = Estoques::find($idEstoque);
         $idproduto = $request->input('id_prod');
-        $valorTotal = $request->input('valorTotal');
         $produto = produto::find($idproduto);
         if ($estoque) {
             $data = $request->input('data');
             $quantidadeMovi = $request->input('quantidadeMovi');
+            $valorTotal = $request->input('valorTotal');
             $operacao = $request->input('operacao');
             // Nesse caso, como operação é um booleano, consideramos que true vai somar a quantidade e false vai subtrair
             if ($operacao == null) {

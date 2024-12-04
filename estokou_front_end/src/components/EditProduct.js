@@ -15,7 +15,8 @@ const EditProduct = () => {
     const navigate = useNavigate()
     const [name, setName] = useState()
     const [amount, setAmount] = useState()
-    const [price, setPrice] = useState()
+    const [purchaseValue, setPurchaseValue] = useState()
+    const [saleValue, setSaleValue] = useState()
     const [checkbox, setCheckbox] = useState()
 
     function handleCheckbox(e) {
@@ -31,11 +32,11 @@ const EditProduct = () => {
                 const responseProd = await api.get('/api/produto/'+profile.getProductId());
                 setAmount(responseProd.data.quantidade);
                 setName(responseProd.data.nome);
-                setPrice(responseProd.data.preco);
+                setPurchaseValue(responseProd.data.valorCompra);
+                setSaleValue(responseProd.data.valorVenda);
                 setCheckbox(responseProd.data.checkbox);
             } catch (err) {
                 console.error("Erro ao buscar produtos: ", err);
-                console.log(profile.getProductId())
             }
         };
         fetchProdutos();
@@ -48,7 +49,8 @@ const EditProduct = () => {
             await api.put("/api/produto/"+profile.getProductId(), {
                 nome: name,  // Envia o valor diretamente
                 quantidade: amount,
-                preco: parseFloat(price),
+                valorCompra: parseFloat(purchaseValue),
+                valorVenda: parseFloat(saleValue),
                 fragilidade: checkbox,
             })
 
@@ -78,10 +80,13 @@ const EditProduct = () => {
                         <Form.Label>Insira a Quantidade</Form.Label>
                         <Form.Control type='number' placeholder={amount} value={amount} onChange={(e) => setAmount(e.target.value)} name='amount' />
                     </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="Price" >
-                        <Form.Label>Insira o Preço Unitário</Form.Label>
-                        <Form.Control type="text" placeholder={price} value={price} onChange={(e) => setPrice(e.target.value)} name='price' />
+                    <Form.Group className="mb-3" controlId="PurchaseValue" >
+                        <Form.Label>Insira o valor unitário pelo qual o produto foi comprado</Form.Label>
+                        <Form.Control type="text" placeholder="120,00" value={purchaseValue} onChange={(e) => setPurchaseValue(e.target.value)} name='purchaseValue'/>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="SaleValue">
+                        <Form.Label>Insira o valor unitário pelo qual ele será vendido</Form.Label>
+                        <Form.Control type="text" placeholder="120,00"  value={saleValue} onChange={(e) => setSaleValue(e.target.value)} name='saleValue'/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox" >
                         <Form.Check type="checkbox" label="O produto é frágil?" value={checkbox} onChange={handleCheckbox}/>
