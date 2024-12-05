@@ -38,7 +38,7 @@ const DiscountProduct = () => {
             navigate("/usuario")
         } catch (err) {
             console.error("Erro ao Descontar Produto: ", err);
-            alert("Ocorreu um erro ao descontar o Produto.");
+            alert(err.response.data.error);
         }
     }
 

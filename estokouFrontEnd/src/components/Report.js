@@ -5,6 +5,7 @@ import api from '../servico/App';
 import Profile from './Profiles';
 import { useEffect, useState } from 'react';
 import BaseBoard from './BaseBoard';
+import Checker from './Checker';
 
 function TableReport() {
     const storageId = Profile.getStorageId();
@@ -32,8 +33,8 @@ function TableReport() {
     return (
         <div>
             <div className='container'>
+                <Checker/>
                 <UserNavbar />
-
                 <h1>Relatório de Movimentações</h1>
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"></link>
 

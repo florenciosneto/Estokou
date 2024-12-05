@@ -75,17 +75,17 @@ function TableProdut() {
                 </div>
             </div>
 
-            <table className="table">
+            <table className="table rounded-table">
                 <thead>
                     <tr>
-                        <th>id</th>
+                        <th className='celulas1'>id</th>
                         <th>Nome</th>
                         <th className='celulas'>Quantidade</th>
                         <th>Valor de Compra</th>
                         <th>Valor de Venda</th>
                         <th className='celulas'>Fragilidade</th>
                         <th className='celulas'>Fornecedor</th>
-                        <th>Opções</th>
+                        <th className='celulas1'>Opções</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +100,7 @@ function TableProdut() {
                             <td className='celulas'>{produto.fornecedor || "N/A"}</td>
                             <td className='opcoes'>
                                 <a href={`/usuario/produtos/edicao`} onClick={() => handleEdit(produto.id)}><i class="fa-solid fa-pen-to-square"> editar</i></a>
-                                <a onClick={() => handleDelete(produto.id)}><i class="fa-solid fa-trash">Apagar</i></a>
+                                <a href='#' onClick={() => handleDelete(produto.id)}><i class="fa-solid fa-trash">Apagar</i></a>
                             </td>
                         </tr>
                     ))}
