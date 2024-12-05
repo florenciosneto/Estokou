@@ -31,7 +31,7 @@ class UsuarioController extends Controller
                 409
             );
         } else {
-            $p = usuario::create(['nome' => $nome, 'email' => $email, 'senha' => $senha]);
+            $p = Usuario::create(['nome' => $nome, 'email' => $email, 'senha' => $senha]);
             $id = $p->id;
             return response(
                 ['location' => route('usuarios.show', $id)],
@@ -40,12 +40,12 @@ class UsuarioController extends Controller
         }
     }
 
-    public function show(usuario $usuario)
+    public function show(Usuario $usuario)
     {
         return $usuario;
     }
 
-    public function update(Request $request, usuario $usuario)
+    public function update(Usuario $usuario)
     {
         $nome = request()->input('nome');
         if ($nome)
@@ -59,7 +59,7 @@ class UsuarioController extends Controller
         $usuario->save();
     }
 
-    public function destroy(usuario $usuario)
+    public function destroy(Usuario $usuario)
     {
         $usuario->delete();
     }

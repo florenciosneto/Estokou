@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\movimentacao;
+use App\Models\Movimentacao;
 use Illuminate\Http\Request;
-use App\Models\Estoques;
-use App\Models\produto;
+use App\Models\Estoque;
+use App\Models\Produto;
 use Illuminate\Support\Facades\DB;
 
 class MovimentacaoController extends Controller
@@ -23,9 +23,9 @@ class MovimentacaoController extends Controller
     public function store(Request $request)
     {
         $idEstoque = $request->input('id_estoque');
-        $estoque = Estoques::find($idEstoque);
+        $estoque = Estoque::find($idEstoque);
         $idproduto = $request->input('id_prod');
-        $produto = produto::find($idproduto);
+        $produto = Produto::find($idproduto);
         if ($estoque) {
             $data = $request->input('data');
             $quantidadeMovi = $request->input('quantidadeMovi');
@@ -59,12 +59,12 @@ class MovimentacaoController extends Controller
 
                 //Aqui cria um produto, caso ele não exista
             } else if (!$produto && $operacao) {
-                $produto = produto::create(['nome' => '???', 'quantidade' => $quantidadeMovi, 'preco' => 0, 'fragilidade' => false]);
+                $produto = Produto::create(['nome' => '???', 'quantidade' => $quantidadeMovi, 'preco' => 0, 'fragilidade' => false]);
             }
-            $movimentacao = movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidadeMovi' => $quantidadeMovi, 'valorTotal' => $valorTotal, 'data' => $data, 'operacao' => $operacao]);
+            $movimentacao = Movimentacao::create(['id_estoque' => $estoque->id, 'id_prod' => $produto->id, 'quantidadeMovi' => $quantidadeMovi, 'valorTotal' => $valorTotal, 'data' => $data, 'operacao' => $operacao]);
 
             return response(
-                ['location' => route('movimentacao.show', $movimentacao->id)],
+                ['location' => route('movimentacaos.show', $movimentacao->id)],
                 201
             );
         }
@@ -74,13 +74,13 @@ class MovimentacaoController extends Controller
         );
     }
 
-    public function show(movimentacao $movimentacao)
+    public function show(Movimentacao $movimentacao)
     {
         return response($movimentacao, 200);
     }
 
 
-    public function update(Request $request, movimentacao $movimentacao)
+    public function update(Request $request, Movimentacao $movimentacao)
     {
         $idEstoque = $request->input('id_estoque');
         # TODO: Avisar ao usuário que ele não pode trocar o id do estoque, caso ele tente
@@ -115,7 +115,7 @@ class MovimentacaoController extends Controller
         $movimentacao->save();
     }
 
-    public function destroy(movimentacao $movimentacao)
+    public function destroy(Movimentacao $movimentacao)
     {
         $movimentacao->delete();
     }

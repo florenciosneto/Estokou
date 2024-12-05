@@ -176,7 +176,7 @@ paths:
         404:
           description: Estoque não encontrado.
 
-  /movimentacao:
+  /movimentacaos:
     get:
       summary: Acessar todas as movimentações
       responses:
@@ -230,7 +230,7 @@ paths:
         400:
           description: Requisição inválida   
 
-  /movimentacao/{id}:
+  /movimentacaos/{id}:
     parameters:
       - name: id
         in: path
@@ -287,7 +287,7 @@ paths:
         404:
           description: movimentacao não encontrado.   
 
-  /produto:
+  /produtos:
     get:
       summary: Acessar todos os produtos
       responses:
@@ -311,9 +311,13 @@ paths:
                   type: string
                   description: O fornecedor do produto.
                   example: slup
-                preco:
+                valorCompra:
                   type: integer
-                  description: preço:.
+                  description: valor de Compra do produto:.
+                  example: 100
+                valorVenda:
+                  type: integer
+                  description: valor de Venda do produto:.
                   example: 100
                 quantidade:
                   type: integer
@@ -338,7 +342,7 @@ paths:
           description: Requisição inválida
 
 
-  /produto/{id}:
+  /produtos/{id}:
     parameters:
       - name: id
         in: path

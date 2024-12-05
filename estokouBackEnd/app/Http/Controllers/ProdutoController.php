@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produto;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,20 +33,20 @@ class ProdutoController extends Controller
         } else {
             $fragilidade = true;
         }
-        $p = produto::create(['nome' => $nome, 'fornecedor' => $fornecedor, 'quantidade' => $quantidade, 'valorCompra' => $valorCompra, 'valorVenda' => $valorVenda, 'fragilidade' => $fragilidade]);
+        $p = Produto::create(['nome' => $nome, 'fornecedor' => $fornecedor, 'quantidade' => $quantidade, 'valorCompra' => $valorCompra, 'valorVenda' => $valorVenda, 'fragilidade' => $fragilidade]);
         $id = $p->id;
         return response(
-            ['location' => route('produto.show', $id)],
+            ['location' => route('produtos.show', $id)],
             201
         );
     }
 
-    public function show(produto $produto)
+    public function show(Produto $produto)
     {
         return response($produto, 200);
     }
 
-    public function update(Request $request, produto $produto)
+    public function update(Produto $produto)
     {
         $nome = request()->input('nome');
         if ($nome)
@@ -70,7 +70,7 @@ class ProdutoController extends Controller
         $produto->save();
     }
 
-    public function destroy(produto $produto)
+    public function destroy(Produto $produto)
     {
         $produto->delete();
     }
